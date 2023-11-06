@@ -8,14 +8,13 @@ const FLOAT_NUM2    = 'FLOAT_NUM2'
 const SHOW          = 'SHOW'
 
 // DEFINE GLOBAL VARIABLE
-let num1 = '0'
-let num2 = '0'
-let result = '0'
-let operation = '-'
-let state = DEFAULT
-let btnHold = ''
+let num1            = ''
+let num2            = ''
+let result          = ''
+let operation       = ''
+let state           = DEFAULT
 
-// Create Reference variable
+// CREATE REFERENCE VARIABLES
 const btn0 = document.querySelector('#btn0');
 const btn1 = document.querySelector('#btn1');
 const btn2 = document.querySelector('#btn2');
@@ -35,7 +34,7 @@ const btnEqual = document.querySelector('#btnEqual');
 const btnClear = document.querySelector('#btnClear');
 const display = document.querySelector('#display')
 
-// Add event listener
+// ADD EVENT LISTENER
 btn0.addEventListener('click', () => stateTransition('0'))
 btn1.addEventListener('click', () => stateTransition('1'))
 btn2.addEventListener('click', () => stateTransition('2'))
@@ -54,32 +53,34 @@ btnDivide.addEventListener('click', () => stateTransition('÷'))
 btnEqual.addEventListener('click', () => stateTransition('='))
 btnClear.addEventListener('click', () => stateTransition('clear'))
 
+// CALCULATOR LOGIC : implemented using state machine approach
+
 function holdOperationButton(input) {
-    // Clear holding
-    btnPlus.style.backgroundColor = 'var(--btn)'
-    btnMinus.style.backgroundColor = 'var(--btn)'
-    btnMultiply.style.backgroundColor = 'var(--btn)'
-    btnDivide.style.backgroundColor = 'var(--btn)'
+    // Clear what holding now
+    btnPlus.style.backgroundColor = ''
+    btnMinus.style.backgroundColor = ''
+    btnMultiply.style.backgroundColor = ''
+    btnDivide.style.backgroundColor = ''
 
     if(state === NUM2_NUM1 && ['+','-','×','÷'].includes(input)) {
         switch (input) {
             case '+':
                 btnPlus.style.backgroundColor = 'var(--btn-blue)'
-                brake
+                break
             case '-':
                 btnMinus.style.backgroundColor = 'var(--btn-blue)'
-                brake
+                break
             case '×':
                 btnMultiply.style.backgroundColor = 'var(--btn-blue)'
-                brake
+                break
             case '÷':
                 btnDivide.style.backgroundColor = 'var(--btn-blue)'
-                brake
+                break
         }
     }
 }
 
-
+// Show number on calculator display according to current state
 function show() {
     if(state === DEFAULT) {
         display.textContent = '0'
@@ -95,22 +96,23 @@ function show() {
     }
 }
 
+// See state machine for more understanding
 function stateTransition(input) {
-    if(input === 'clear') {
+    if(input === 'clear') { // Asynchronous clear
         result = '0'
         num1 = '0'
         num2 = '0'
         state = DEFAULT
-    } else if(state === DEFAULT && input.match(/\d/)) {
+    } else if(state === DEFAULT && input.match(/\d/)) { // RegEx to check if input is string '0'-'9'
         num1 = input
         state = INT_NUM1
-    } else if(state === INT_NUM1 && input.match(/\d/) && num1[num1.length - 1] != '0') {
+    } else if(state === INT_NUM1 && input.match(/\d/)) {
         num1 += input
         state = INT_NUM1
     } else if((state === INT_NUM1 || state === DEFAULT) && input === '.') {
         num1 += input
         state = FLOAT_NUM1
-    } else if(state === FLOAT_NUM1 && input.match(/\d/) && num1[num1.length - 1] != '0') {
+    } else if(state === FLOAT_NUM1 && input.match(/\d/)) {
         num1 += input
         state = FLOAT_NUM1
     } else if((state === INT_NUM1 || state === FLOAT_NUM1) && ['+','-','×','÷'].includes(input)) {
@@ -126,13 +128,13 @@ function stateTransition(input) {
     } else if(state === NUM2_NUM1 && input === '.') {
         num2 = '0.'
         state = FLOAT_NUM2
-    } else if(state === INT_NUM2 && input.match(/\d/) && num2[num2.length - 1] != '0') {
+    } else if(state === INT_NUM2 && input.match(/\d/)) {
         num2 += input
         state = INT_NUM2
     } else if(state === INT_NUM2 && input === '.') {
         num2 += input
         state = FLOAT_NUM2
-    } else if(state === FLOAT_NUM2 && input.match(/\d/) && num2[num2.length - 1] != '0') {
+    } else if(state === FLOAT_NUM2 && input.match(/\d/)) {
         num2 += input
         state = FLOAT_NUM2
     } else if((state === INT_NUM2 || state === FLOAT_NUM2) && input === '=') {
@@ -159,14 +161,9 @@ function stateTransition(input) {
     }
     show()
     holdOperationButton(input)
-    // console.log("---------------")
-    // console.log('num1 :', num1)
-    // console.log('num2 :', num2)
-    // console.log('operation :', operation)
-    // console.log('result :', result)
-    // console.log('state :', state)
 }
 
+// Calculate result according to operation given
 function calculate(num1, num2, operation) {
     num1 = parseFloat(num1)
     num2 = parseFloat(num2)
@@ -184,8 +181,7 @@ function calculate(num1, num2, operation) {
     num2 = num2.toString()
 }
 
-
-// INITIAL CALLED
+// INITIAL SETUP
 show()
 
 

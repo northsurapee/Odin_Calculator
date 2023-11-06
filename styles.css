@@ -14,7 +14,7 @@
     --btn-blue: #aaf;
   }
 
-/* clear all default padding and margin */
+/* Clear all default padding and margin */
 *,
 *::before,
 *::after {
@@ -26,24 +26,46 @@
 
 /* WHOLE PAGE */
 body {
-    font-family: 'Roboto', sans-serif;
+    /* positioning */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    /* styling */
+    font-family: 'Roboto', sans-serif;
     background-color: var(--background);
     color: var(--font);
 }
 
-.display-container {
-    margin-bottom: 20px;
-    height: 100px;
-    width: 100%;
-    border: 1px solid black;
+/* CALCULATOR BODY */
+.container {
+    /* positioning */
+    height: 600px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* styling */
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    background-color: var(--calculator);
+}
 
+/* DISPLAY */
+.display-container {
+    /* positioning */
+    margin-bottom: 20px;
+    min-height: 100px; /* expand according to text */
+    width: 100%;
     display: flex;
     justify-content: right;
     align-items: center;
+    word-wrap: break-word;  /* break word to new line */
+    word-break: break-all;
+    /* styling */
+    border: 1px solid black;
     border-radius: 15px;
     border: 2px solid var(--border);
     background-color: var(--screen);
@@ -55,19 +77,7 @@ body {
     font-size: 36px;
 }
 
-.container {
-    height: 600px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    border: 2px solid var(--border);
-    border-radius: 20px;
-    background-color: var(--calculator);
-}
-
+/* BUTTONS */
 .button-container {
     flex: 1;
     width: 100%;
@@ -95,7 +105,7 @@ button {
 }
 
 #btnClear {
-    grid-column: span 4;
+    grid-column: span 4; /* make it's size = 4 block */
     background-color: var(--btn-red);
 }
 
