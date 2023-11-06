@@ -54,7 +54,6 @@ btnEqual.addEventListener('click', () => stateTransition('='))
 btnClear.addEventListener('click', () => stateTransition('clear'))
 
 // CALCULATOR LOGIC : implemented using state machine approach
-
 function holdOperationButton(input) {
     // Clear what holding now
     btnPlus.style.backgroundColor = ''
