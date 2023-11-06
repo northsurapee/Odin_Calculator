@@ -13,6 +13,7 @@ let num2 = '0'
 let result = '0'
 let operation = '-'
 let state = DEFAULT
+let btnHold = ''
 
 // Create Reference variable
 const btn0 = document.querySelector('#btn0');
@@ -52,12 +53,31 @@ btnMultiply.addEventListener('click', () => stateTransition('×'))
 btnDivide.addEventListener('click', () => stateTransition('÷'))
 btnEqual.addEventListener('click', () => stateTransition('='))
 btnClear.addEventListener('click', () => stateTransition('clear'))
-// Hold button
-btnPlus.addEventListener('click', (e) => holdButton(e))
-btnMinus.addEventListener('click', (e) => holdButton(e))
-btnMultiply.addEventListener('click', (e) => holdButton(e))
-btnDivide.addEventListener('click', (e) => holdButton(e))
 
+function holdOperationButton(input) {
+    // Clear holding
+    btnPlus.style.backgroundColor = 'var(--btn)'
+    btnMinus.style.backgroundColor = 'var(--btn)'
+    btnMultiply.style.backgroundColor = 'var(--btn)'
+    btnDivide.style.backgroundColor = 'var(--btn)'
+
+    if(state === NUM2_NUM1 && ['+','-','×','÷'].includes(input)) {
+        switch (input) {
+            case '+':
+                btnPlus.style.backgroundColor = 'var(--btn-blue)'
+                brake
+            case '-':
+                btnMinus.style.backgroundColor = 'var(--btn-blue)'
+                brake
+            case '×':
+                btnMultiply.style.backgroundColor = 'var(--btn-blue)'
+                brake
+            case '÷':
+                btnDivide.style.backgroundColor = 'var(--btn-blue)'
+                brake
+        }
+    }
+}
 
 
 function show() {
@@ -97,6 +117,9 @@ function stateTransition(input) {
         operation = input
         num2 = num1
         state = NUM2_NUM1
+    } else if(state === NUM2_NUM1 && ['+','-','×','÷'].includes(input)) {
+        operation = input
+        state = NUM2_NUM1
     } else if(state === NUM2_NUM1 && input.match(/\d/)) {
         num2 = input
         state = INT_NUM2
@@ -135,12 +158,13 @@ function stateTransition(input) {
         state = NUM2_NUM1
     }
     show()
-    console.log("---------------")
-    console.log('num1 :', num1)
-    console.log('num2 :', num2)
-    console.log('operation :', operation)
-    console.log('result :', result)
-    console.log('state :', state)
+    holdOperationButton(input)
+    // console.log("---------------")
+    // console.log('num1 :', num1)
+    // console.log('num2 :', num2)
+    // console.log('operation :', operation)
+    // console.log('result :', result)
+    // console.log('state :', state)
 }
 
 function calculate(num1, num2, operation) {
