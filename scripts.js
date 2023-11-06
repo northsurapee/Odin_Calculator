@@ -105,7 +105,7 @@ function stateTransition(input) {
     } else if(state === DEFAULT && input.match(/\d/)) { // RegEx to check if input is string '0'-'9'
         num1 = input
         state = INT_NUM1
-    } else if(state === DEFAULT && input === '.') { // RegEx to check if input is string '0'-'9'
+    } else if(state === DEFAULT && input === '.') {
         num1 = '0.'
         state = FLOAT_NUM1
     } else if(state === INT_NUM1 && input.match(/\d/)) {

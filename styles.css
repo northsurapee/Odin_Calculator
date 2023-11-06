@@ -40,7 +40,7 @@ body {
 /* CALCULATOR BODY */
 .container {
     /* positioning */
-    height: 600px;
+    min-height: 600px; /* eable to expand */
     width: 450px;
     display: flex;
     flex-direction: column;
@@ -57,8 +57,8 @@ body {
 .display-container {
     /* positioning */
     margin-bottom: 20px;
-    min-height: 100px; /* expand according to text */
-    width: 100%;
+    min-height: 100px; /* enable to expand */
+    width: 100%; /* expand to 100% of its parent container */
     display: flex;
     justify-content: right;
     align-items: center;
@@ -79,8 +79,8 @@ body {
 
 /* BUTTONS */
 .button-container {
-    flex: 1;
-    width: 100%;
+    flex: 1; /* element will expand and fill the available space -> expand height (main axis) */
+    width: 100%; /* expand width */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
